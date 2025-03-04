@@ -1,5 +1,6 @@
 interface Article {
-    id: string;
-    name: string;
-    price: string;
+  id: string;
+  name: string;
+  price: number;
+  availableStock: number;
 }
