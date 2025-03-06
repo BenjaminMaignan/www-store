@@ -5,32 +5,39 @@ import { revalidateTag } from 'next/cache';
 export async function createCartItem(
   cartItemReq: CartItemRequest
 ): Promise<void> {
-  return fetch(`http://localhost:8080/api/cart-items`, {
+  const response = await fetch(`http://localhost:8080/api/cart-items`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(cartItemReq),
-  })
-    .then(() => revalidateTag('cart'))
-    .catch((error) => console.error('Error:', error));
+  });
+
+  if (!response.ok) {
+    const error: ProblemDetail = await response.json();
+    throw new Error(error.detail || 'An error occurred');
+  }
+
+  revalidateTag('cart');
 }
 
 export async function updateCartItem(
   cartItemReq: CartItemRequest
 ): Promise<CartItem> {
-  return fetch(`http://localhost:8080/api/cart-items/${cartItemReq.id}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(cartItemReq),
-  })
-    .then((res) => {
-      revalidateTag('cart');
-      return res.json();
-    })
-    .catch((error) => console.error('Error:', error));
+  const response = await fetch(
+    `http://localhost:8080/api/cart-items/${cartItemReq.id}`,
+    {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(cartItemReq),
+    }
+  );
+
+  revalidateTag('cart');
+
+  return response.json();
 }
 
 export async function deleteCartItem(id: string): Promise<void> {
