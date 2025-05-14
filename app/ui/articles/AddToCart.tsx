@@ -7,34 +7,38 @@ import { ReactNode, useState } from 'react';
 import { Loader } from '@ui/component/Loader';
 
 interface Props {
-  articleId: string;
+  articleItemId: string;
+  openNotification: () => void;
 }
 
-export function AddToCart({ articleId }: Readonly<Props>) {
-  const [message, setMessage] = useState<string | ReactNode>('Add to cart');
+export function AddToCart({ articleItemId, openNotification }: Readonly<Props>) {
+  const [message, setMessage] = useState<string | ReactNode>('Ajouter au panier');
 
   const [state, setState] = useState<'normal' | 'error'>('normal');
 
   const onClick = () => {
     const cartItemReq = {
-      articleId: articleId,
+      articleItemId: articleItemId,
       cartId: '11111111-1111-4444-1111-111111111119',
       quantity: 1,
     } as CartItemRequest;
     setMessage(
       <>
         <Loader />
-        <p className={'ml-2'}>Adding to cart ...</p>
+        <p className={'ml-4'}>Ajout en cours</p>
       </>
     );
     createCartItem(cartItemReq)
-      .then(() => setMessage('Add to cart'))
+      .then(() => {
+        setMessage('Ajouter au panier');
+        openNotification();
+      })
       .catch((error) => {
         setMessage(error.message);
         setState('error');
         setTimeout(() => {
           setState('normal');
-          setMessage('Add to cart');
+          setMessage('Ajouter au panier');
         }, 8000);
       });
   };
@@ -43,8 +47,8 @@ export function AddToCart({ articleId }: Readonly<Props>) {
     <button
       onClick={onClick}
       disabled={state !== 'normal'}
-      className={clsx('w-full rounded p-1 flex items-center justify-center', {
-        'bg-zinc-200 text-white hover:bg-black hover:text-white':
+      className={clsx('w-full p-3 flex items-center justify-center uppercase text-lg font-semibold', {
+        'bg-black text-white hover:bg-zinc-900 active:bg-zinc-800':
           state == 'normal',
         'bg-red-100 text-red-500': state == 'error',
       })}

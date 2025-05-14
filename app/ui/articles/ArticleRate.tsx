@@ -1,5 +1,6 @@
 import { IconStarFilled } from '@tabler/icons-react';
 import { HTMLAttributes } from 'react';
+import { clsx } from 'clsx';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   averageRate: number;
@@ -20,13 +21,13 @@ export function ArticleRate({ averageRate, ...props }: Readonly<Props>) {
   };
 
   return (
-    <div {...props} className={'flex items-end gap-2'}>
+    <div {...props} className={clsx('flex items-end gap-2', props.className)}>
       <div className={'grid grid-cols-5 w-16 h-4'}>
         {Array.from({ length: 5 }).map((_, index) => (
           <span key={'rating_stars_' + index} className={'relative'}>
-            <IconStarFilled className={'absolute w-full text-zinc-200'} />
+            <IconStarFilled className={'w-full text-zinc-200'} />
             <IconStarFilled
-              className={'absolute w-full text-zinc-800'}
+              className={'absolute inset-0 w-full text-zinc-800'}
               style={{
                 clipPath: getClipPath(index),
               }}

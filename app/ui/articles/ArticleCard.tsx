@@ -1,14 +1,14 @@
-import { AddToCart } from '@ui/articles/AddToCart';
+import Link from 'next/link';
+
 import { ArticleRate } from '@ui/articles/ArticleRate';
+import { CurrencyFormatter } from '@ui/component/CurrencyFormatter';
 
-export function ArticleCard({ article }: Readonly<{ article: Article }>) {
-  const currencyFormatter = new Intl.NumberFormat('fr-FR', {
-    style: 'currency',
-    currency: 'EUR',
-  });
-
+export function ArticleCard({ article }: Readonly<{ article: ArticleLight }>) {
   return (
-    <div className={' bg-zinc-50 border flex flex-col gap-4'}>
+    <Link
+      href={`articles/${article.id}`}
+      className={' bg-zinc-50 border flex flex-col gap-4'}
+    >
       <section className={'bg-white'}>
         <img
           className={'w-full aspect-square object-cover'}
@@ -16,16 +16,14 @@ export function ArticleCard({ article }: Readonly<{ article: Article }>) {
           alt='Sweat'
         />
       </section>
-      <section className={'flex flex-col gap-2 px-4'}>
+      <section className={'flex flex-col gap-2 px-4 pb-4'}>
         <h3 className={'font-semibold text-base'}>{article.name}</h3>
         <ArticleRate averageRate={30} />
-        <p className={'font-semibold text-base'}>
-          {currencyFormatter.format(article.price)}
-        </p>
+        <CurrencyFormatter
+          className={'font-semibold text-base'}
+          value={article.price}
+        />
       </section>
-      <section className={'px-4 pb-4'}>
-        <AddToCart articleId={article.id} />
-      </section>
-    </div>
+    </Link>
   );
 }

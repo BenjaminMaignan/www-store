@@ -10,16 +10,16 @@ export default async function CartPage() {
   ];
 
   return (
-    <>
-      <div className={'p-3'}>
+    <div className={'max-w-[90rem] mx-auto py-4'}>
+      <div className={'py-2 mb-4'}>
         <Breadcrumb breadcrumbs={breadcrumbs} />
         <h1 className={'font-bold text-4xl'}>Mon pannier</h1>
       </div>
-      <div className={'p-3'}>
+      <div>
         <Suspense fallback={<div>Chargement...</div>}>
           <CartItemList />
         </Suspense>
       </div>
-    </>
+    </div>
   );
 }

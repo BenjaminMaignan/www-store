@@ -2,7 +2,7 @@
 
 import { revalidateTag } from 'next/cache';
 
-export async function getArticles(): Promise<Article[]> {
+export async function getArticles(): Promise<ArticleLight[]> {
   return fetch('http://localhost:8080/api/articles', {
     method: 'GET',
     headers: {

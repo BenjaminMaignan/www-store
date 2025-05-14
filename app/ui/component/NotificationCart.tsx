@@ -1,4 +1,5 @@
 import { IconX } from '@tabler/icons-react';
+import Link from 'next/link';
 
 interface Props {
   handleClose?: () => void;
@@ -33,16 +34,17 @@ export function NotificationCart({ handleClose }: Readonly<Props>) {
             'mb-4 flex items-center justify-between text-zinc-800 font-bold'
           }
         >
-          <p>2 Articles</p>
-          <p>150,00€</p>
+          <p>XXX Articles</p>
+          <p>XXX,XX€</p>
         </div>
-        <button
+        <Link
           className={
             'w-full bg-black text-white uppercase text-lg font-semibold p-3'
           }
+          href={'/cart'}
         >
           Afficher le panier
-        </button>
+        </Link>
       </div>
     </div>
   );

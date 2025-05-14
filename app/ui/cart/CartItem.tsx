@@ -1,5 +1,6 @@
 import { DeleteCartItem } from '@ui/cart/DeleteCartItem';
 import { QuantitySelector } from '@ui/cart/QuantitySelector';
+import { CurrencyFormatter } from '@ui/component/CurrencyFormatter';
 
 interface Props {
   cartId: string;
@@ -7,11 +8,6 @@ interface Props {
 }
 
 export function CartItem({ cartId, cartItem }: Readonly<Props>) {
-  const currencyFormatter = new Intl.NumberFormat('fr-FR', {
-    style: 'currency',
-    currency: 'EUR',
-  });
-
   return (
     <li className={'relative flex gap-4 border-b w-full'}>
       <div className={'aspect-square h-32'}>
@@ -23,22 +19,24 @@ export function CartItem({ cartId, cartItem }: Readonly<Props>) {
       </div>
       <div className={'p-3 w-full'}>
         <h3 className={'font-semibold text-base mb-2'}>
-          {cartItem.article.name}
+          {cartItem.articleItem.color} - Name of the article
         </h3>
-        <p className={'font-medium text-base mb-2'}>
-          {currencyFormatter.format(cartItem.article.price)}
-        </p>
+        {/*<CurrencyFormatter*/}
+        {/*  className={'font-medium text-base mb-2'}*/}
+        {/*  value={cartItem.articleItem.size}*/}
+        {/*/>*/}
+        <p className={'font-medium text-base mb-2'}>Should be the price : {cartItem.articleItem.size}</p>
         <p className={'font-normal text-xs text-zinc-500 mb-2'}>
           Some description
         </p>
         <div className={'w-full flex justify-between'}>
-          <QuantitySelector
-            cartId={cartId}
-            cartItemId={cartItem.id}
-            articleId={cartItem.article.id}
-            quantity={cartItem.quantity}
-            availableQuantity={cartItem.article.availableStock}
-          />
+          {/*<QuantitySelector*/}
+          {/*  cartId={cartId}*/}
+          {/*  cartItemId={cartItem.id}*/}
+          {/*  articleId={cartItem.article.id}*/}
+          {/*  quantity={cartItem.quantity}*/}
+          {/*  availableQuantity={cartItem.article.availableStock}*/}
+          {/*/>*/}
           <DeleteCartItem cartItemId={cartItem.id} />
         </div>
       </div>

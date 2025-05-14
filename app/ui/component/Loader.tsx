@@ -2,7 +2,7 @@ export function Loader() {
   return (
     <svg
       aria-hidden='true'
-      className='w-6 h-6 text-zinc-200 animate-spin fill-zinc-800'
+      className='w-6 h-6 text-[#fff6] animate-spin fill-white'
       viewBox='0 0 100 101'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
