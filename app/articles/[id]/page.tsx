@@ -22,7 +22,7 @@ export default async function ArticlePage({ params }: Props) {
   ];
 
   return (
-    <div className={'max-w-[90rem] mx-auto py-4'}>
+    <div className={'max-w-[90rem] mx-auto p-4'}>
       <div className={'py-2 mb-4'}>
         <Breadcrumb breadcrumbs={breadcrumbs} />
       </div>

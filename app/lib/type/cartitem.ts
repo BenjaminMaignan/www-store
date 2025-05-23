@@ -1,6 +1,6 @@
 interface CartItem {
   id: string;
-  articleItem: ArticleItem;
+  articleItem: ArticleCartItem;
   quantity: number;
 }
 

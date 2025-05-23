@@ -1,12 +1,27 @@
+'use client';
+
 import { clsx } from 'clsx';
 
-interface Props {
-  colors: string[];
+interface ArticleAttribute {
+  color: string;
+  size: string;
 }
 
-export function ArticleColorSelector({ colors }: Readonly<Props>) {
+interface Props {
+  attributes: ArticleAttribute[];
+  selectedColor: string;
+  selectedSize: string;
+  setColor: (color: string) => void;
+}
+
+export function ArticleColorSelector({
+  attributes,
+  selectedColor,
+  selectedSize,
+  setColor,
+}: Readonly<Props>) {
   const getColorClass = (color: string) => {
-    switch (color) {
+    switch (color.toLowerCase()) {
       case 'red':
         return 'bg-red-800';
       case 'blue':
@@ -22,18 +37,23 @@ export function ArticleColorSelector({ colors }: Readonly<Props>) {
     }
   };
 
+  const onClick = (color: string) => {
+    setColor(color);
+  };
+
   return (
     <div className={'flex flex-wrap gap-2'}>
-      {colors.map((color) => (
-        <div
-          key={color}
+      {attributes.map((attribute) => (
+        <button
+          key={'color_' + attribute.color}
           className={clsx(
-            'w-10 h-10 bg-zinc-100 flex items-center justify-center',
-            'border-b-4 border-zinc-300'
+            `relative size-6 rounded-full ${getColorClass(attribute.color)} flex items-center justify-center`,
+            {
+              'ring-2 ring-zinc-300': selectedColor === attribute.color,
+            }
           )}
-        >
-          <div className={`w-3 h-3 ${getColorClass(color)} rounded-full`} />
-        </div>
+          onClick={() => onClick(attribute.color)}
+        ></button>
       ))}
     </div>
   );

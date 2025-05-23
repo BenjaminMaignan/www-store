@@ -11,7 +11,7 @@ export default async function Home() {
   ];
 
   return (
-    <div className={'max-w-[90rem] mx-auto py-4'}>
+    <div className={'max-w-[90rem] mx-auto p-4'}>
       <div className={'py-2 mb-4'}>
         <Breadcrumb breadcrumbs={breadcrumbs} />
         <div>

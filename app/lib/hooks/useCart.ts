@@ -4,13 +4,13 @@ export function useCart() {
   const updateItemInCart = async (
     cartId: string,
     cartItemId: string,
-    articleId: string,
+    articleItemId: string,
     quantity: number
   ) => {
     await updateCartItem({
       id: cartItemId,
       cartId: cartId,
-      articleId: articleId,
+      articleItemId: articleItemId,
       quantity: quantity,
     });
   };

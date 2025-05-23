@@ -9,7 +9,7 @@ import styles from '@ui/cart/quantityselector.module.css';
 interface Props {
   cartId: string;
   cartItemId: string;
-  articleId: string;
+  articleItemId: string;
   quantity: number;
   availableQuantity: number;
 }
@@ -17,7 +17,7 @@ interface Props {
 export function QuantitySelector({
   cartId,
   cartItemId,
-  articleId,
+  articleItemId,
   quantity,
   availableQuantity,
 }: Readonly<Props>) {
@@ -25,13 +25,13 @@ export function QuantitySelector({
 
   const onIncrease = () => {
     if (quantity < availableQuantity) {
-      updateItemInCart(cartId, cartItemId, articleId, quantity + 1);
+      updateItemInCart(cartId, cartItemId, articleItemId, quantity + 1);
     }
   };
 
   const onDecrease = () => {
     if (quantity > 1) {
-      updateItemInCart(cartId, cartItemId, articleId, quantity - 1);
+      updateItemInCart(cartId, cartItemId, articleItemId, quantity - 1);
     } else {
       removeItemFromCart(cartItemId);
     }
@@ -40,7 +40,7 @@ export function QuantitySelector({
   const onQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(e.target.value, 10);
     if (value > 0 && value <= availableQuantity) {
-      updateItemInCart(cartId, cartItemId, articleId, value);
+      updateItemInCart(cartId, cartItemId, articleItemId, value);
     }
   };
 
