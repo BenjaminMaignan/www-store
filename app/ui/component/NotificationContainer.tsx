@@ -31,7 +31,7 @@ export function NotificationContainer({
     }, 100);
 
     setTimeout(() => {
-      handleClose();
+      // handleClose();
     }, 5000);
   }, []);
 
@@ -42,7 +42,6 @@ export function NotificationContainer({
     }, 300);
   };
 
-  // @ts-ignore
   return (
     <div
       id={id}

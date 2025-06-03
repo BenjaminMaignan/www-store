@@ -1,6 +1,7 @@
 'use client';
 
 import { clsx } from 'clsx';
+import { Attribute } from 'postcss-selector-parser';
 
 interface ArticleAttribute {
   color: string;
@@ -9,15 +10,13 @@ interface ArticleAttribute {
 
 interface Props {
   attributes: ArticleAttribute[];
-  selectedColor: string;
-  selectedSize: string;
+  selectedAttribute: ArticleAttribute;
   setColor: (color: string) => void;
 }
 
 export function ArticleColorSelector({
   attributes,
-  selectedColor,
-  selectedSize,
+  selectedAttribute,
   setColor,
 }: Readonly<Props>) {
   const getColorClass = (color: string) => {
@@ -49,7 +48,7 @@ export function ArticleColorSelector({
           className={clsx(
             `relative size-6 rounded-full ${getColorClass(attribute.color)} flex items-center justify-center`,
             {
-              'ring-2 ring-zinc-300': selectedColor === attribute.color,
+              'ring-2 ring-zinc-300': selectedAttribute.color === attribute.color,
             }
           )}
           onClick={() => onClick(attribute.color)}

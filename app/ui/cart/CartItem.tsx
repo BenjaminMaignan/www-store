@@ -24,11 +24,11 @@ export function CartItem({ cartId, cartItem }: Readonly<Props>) {
           </h3>
           <DeleteCartItem cartItemId={cartItem.id} />
         </div>
-        <p className={'font-normal text-xs text-zinc-500 mb-2'}>
-          Couleur : {cartItem.articleItem.color}
+        <p className={'text-xs text-zinc-500 mb-2'}>
+          Couleur : <span className={'font-bold text-zinc-700'}>{cartItem.articleItem.color}</span>
         </p>
-        <p className={'font-normal text-xs text-zinc-500 mb-2'}>
-          Taille : {cartItem.articleItem.size}
+        <p className={'text-xs text-zinc-500 mb-2'}>
+          Taille : <span className={'font-bold text-zinc-700'}>{cartItem.articleItem.size}</span>
         </p>
         <div className={'w-full flex justify-between items-end'}>
           <QuantitySelector

@@ -5,20 +5,22 @@ import { clsx } from 'clsx';
 import { ReactNode, useState } from 'react';
 
 import { Loader } from '@ui/component/Loader';
+import { useNotification } from '@lib/context/NotificationContext';
 
 interface Props {
-  articleItemId: string;
-  openNotification: () => void;
+  articleItem: ArticleItem;
 }
 
-export function AddToCart({ articleItemId, openNotification }: Readonly<Props>) {
+export function AddToCart({ articleItem }: Readonly<Props>) {
+  const { openNotification } = useNotification();
+
   const [message, setMessage] = useState<string | ReactNode>('Ajouter au panier');
 
   const [state, setState] = useState<'normal' | 'error'>('normal');
 
   const onClick = () => {
     const cartItemReq = {
-      articleItemId: articleItemId,
+      articleItemId: articleItem.id,
       cartId: '11111111-1111-4444-1111-111111111119',
       quantity: 1,
     } as CartItemRequest;
@@ -31,7 +33,7 @@ export function AddToCart({ articleItemId, openNotification }: Readonly<Props>) 
     createCartItem(cartItemReq)
       .then(() => {
         setMessage('Ajouter au panier');
-        openNotification();
+        openNotification("test", 'success');
       })
       .catch((error) => {
         setMessage(error.message);
@@ -39,7 +41,7 @@ export function AddToCart({ articleItemId, openNotification }: Readonly<Props>) 
         setTimeout(() => {
           setState('normal');
           setMessage('Ajouter au panier');
-        }, 8000);
+        }, 3000);
       });
   };
 

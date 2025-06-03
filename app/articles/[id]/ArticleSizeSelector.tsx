@@ -1,27 +1,21 @@
 'use client';
 
 import { SizeButton } from '@/app/articles/[id]/SizeButton';
-
-interface ArticleAttribute {
-  color: string;
-  size: string;
-}
+import { ArticleAttribute } from '@lib/type/articleattribute';
 
 interface Props {
   attributes: ArticleAttribute[];
-  selectedColor: string;
-  selectedSize: string;
+  selectedAttribute: ArticleAttribute;
   setSize: (size: string) => void;
 }
 
 export function ArticleSizeSelector({
   attributes,
-  selectedColor,
-  selectedSize,
+  selectedAttribute,
   setSize,
 }: Readonly<Props>) {
   const filteredAttributes = attributes.filter(
-    (attribute) => attribute.color === selectedColor
+    (attribute) => attribute.color === selectedAttribute.color
   );
   const hasSize = (size: string) => {
     return filteredAttributes.some((attribute) => attribute.size === size);
@@ -37,7 +31,7 @@ export function ArticleSizeSelector({
         <SizeButton
           key={'size_' + attribute.size}
           value={attribute.size}
-          selected={selectedSize === attribute.size}
+          selected={selectedAttribute.size === attribute.size}
           disabled={!hasSize(attribute.size)}
           onClick={() => onClick(attribute.size)}
         />
