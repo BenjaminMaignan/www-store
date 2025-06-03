@@ -1,13 +1,14 @@
 'use client';
 
-import { ReactNode, createContext, useContext, useMemo, useState } from 'react';
+import { Suspense, createContext, useContext, useMemo, useState } from 'react';
 
 import { NotificationCart } from '@ui/component/NotificationCart';
 import { NotificationContainer } from '@ui/component/NotificationContainer';
 
 interface NotificationContextType {
   openNotification: (
-    content: ReactNode,
+    article: Article,
+    articleItem: ArticleItem,
     type?: 'pending' | 'success' | 'error'
   ) => void;
   removeNotification: (id: string) => void;
@@ -15,7 +16,8 @@ interface NotificationContextType {
 
 interface NotificationType {
   id: string;
-  content: ReactNode;
+  article: Article;
+  articleItem: ArticleItem;
   type?: 'pending' | 'success' | 'error';
 }
 
@@ -39,11 +41,12 @@ export function NotificationProvider({ children }: Readonly<Props>) {
   const [notifications, setNotifications] = useState<NotificationType[]>([]);
 
   const openNotification = (
-    content: ReactNode,
+    article: Article,
+    articleItem: ArticleItem,
     type?: NotificationType['type']
   ) => {
     const id = 'DEFAULT_ID';
-    setNotifications((prev) => [...prev, { id, content, type }]);
+    setNotifications((prev) => [...prev, { id, article, articleItem, type }]);
   };
 
   const removeNotification = (id: string) => {
@@ -63,16 +66,13 @@ export function NotificationProvider({ children }: Readonly<Props>) {
             id={notification.id}
             onClose={removeNotification}
           >
-            <NotificationCart
-              articleItem={{
-                id: 'article-item-id',
-                size: 'M',
-                color: 'Red',
-                availableStock: 10,
-              }}
-              article={{ id:'', name: 'Article Name', price: 19.99, articleItems: [] }}
-              handleClose={() => removeNotification(notification.id)}
-            />
+            <Suspense fallback={<div>Loading...</div>}>
+              <NotificationCart
+                article={notification.article}
+                articleItem={notification.articleItem}
+                handleClose={() => removeNotification(notification.id)}
+              />
+            </Suspense>
           </NotificationContainer>
         ))}
       </div>

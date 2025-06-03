@@ -1,16 +1,16 @@
 'use client';
 
-import { useCart } from '@lib/hooks/useCart';
+import { useCart } from '@lib/context/CartContext';
 
 interface Props {
   cartItemId: string;
 }
 
 export function DeleteCartItem({ cartItemId }: Readonly<Props>) {
-  const { removeItemFromCart } = useCart();
+  const { removeFromCart } = useCart();
 
-  const onDelete = () => {
-    removeItemFromCart(cartItemId);
+  const onDelete = async () => {
+    await removeFromCart(cartItemId);
   };
 
   return (

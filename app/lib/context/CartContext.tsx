@@ -1,9 +1,22 @@
+'use client';
+
+import {
+  createCartItem,
+  deleteCartItem,
+  updateCartItem,
+} from '@lib/actions/cartitem';
 import { createContext, useContext, useMemo } from 'react';
-import { createCartItem } from '@lib/actions/cartitem';
 
 interface CartContextType {
-  cart : Cart;
+  cart: Cart;
   addToCart: (cartItem: CartItemRequest) => Promise<void>;
+  removeFromCart: (cartItemId: string) => Promise<void>;
+  updateFromCart: (
+    cartId: string,
+    cartItemId: string,
+    articleItemId: string,
+    quantity: number
+  ) => Promise<void>;
 }
 
 interface Props {
@@ -23,14 +36,31 @@ export function useCart() {
 
 export function CartProvider({ cart, children }: Readonly<Props>) {
   const addToCart = async (cartItem: CartItemRequest) => {
-    createCartItem(cartItem)
-  }
+    await createCartItem(cartItem);
+  };
 
-  const value = useMemo(() => ({ cart, addToCart }), [cart]);
+  const updateFromCart = async (
+    cartId: string,
+    cartItemId: string,
+    articleItemId: string,
+    quantity: number
+  ) => {
+    await updateCartItem({
+      id: cartItemId,
+      cartId: cartId,
+      articleItemId: articleItemId,
+      quantity: quantity,
+    } as CartItemRequest);
+  };
 
-  return (
-    <CartContext.Provider value={value}>
-      {children}
-    </CartContext.Provider>
+  const removeFromCart = async (cartItemId: string) => {
+    await deleteCartItem(cartItemId);
+  };
+
+  const value = useMemo(
+    () => ({ cart, addToCart, removeFromCart, updateFromCart }),
+    [cart]
   );
+
+  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }

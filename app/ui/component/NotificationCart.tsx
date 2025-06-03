@@ -1,3 +1,4 @@
+import { useCart } from '@lib/context/CartContext';
 import { IconX } from '@tabler/icons-react';
 import Link from 'next/link';
 
@@ -9,12 +10,24 @@ interface Props {
   handleClose?: () => void;
 }
 
-export function NotificationCart({ article, articleItem, handleClose }: Readonly<Props>) {
+export function NotificationCart({
+  article,
+  articleItem,
+  handleClose,
+}: Readonly<Props>) {
+  const { cart } = useCart();
+
   const onClose = () => {
     if (handleClose) {
       handleClose();
     }
-  }
+  };
+
+  const cartItemCount = cart.cartItems.length;
+  const priceList = cart.cartItems.map((item) => item.articleItem.price);
+  const cartCost = priceList.reduce((total, price) => {
+    return total + price;
+  }, 0);
 
   return (
     <div className={'w-80 bg-white shadow-2xl border border-zinc-100'}>
@@ -44,10 +57,16 @@ export function NotificationCart({ article, articleItem, handleClose }: Readonly
         <div>
           <p className={'font-semibold mb-2'}>{article.name}</p>
           <p className={'text-xs text-zinc-500 mb-2'}>
-            Couleur : <span className={'font-bold text-zinc-700'}>{articleItem.color}</span>
+            Couleur :{' '}
+            <span className={'font-bold text-zinc-700'}>
+              {articleItem.color}
+            </span>
           </p>
           <p className={'text-xs text-zinc-500 mb-2'}>
-            Taille : <span className={'font-bold text-zinc-700'}>{articleItem.size}</span>
+            Taille :{' '}
+            <span className={'font-bold text-zinc-700'}>
+              {articleItem.size}
+            </span>
           </p>
           <CurrencyFormatter value={article.price} />
         </div>
@@ -58,8 +77,8 @@ export function NotificationCart({ article, articleItem, handleClose }: Readonly
             'mb-4 flex items-center justify-between text-zinc-800 font-bold'
           }
         >
-          <p>_ Articles</p>
-          <CurrencyFormatter value={-999.99} />
+          <p>{cartItemCount} Articles</p>
+          <CurrencyFormatter value={cartCost} />
         </div>
         <div className={'flex'}>
           <Link

@@ -31,8 +31,8 @@ export function NotificationContainer({
     }, 100);
 
     setTimeout(() => {
-      // handleClose();
-    }, 5000);
+      handleClose();
+    }, 3500);
   }, []);
 
   const handleClose = () => {

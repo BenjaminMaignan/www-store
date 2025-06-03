@@ -1,6 +1,6 @@
 'use client';
 
-import { useCart } from '@lib/hooks/useCart';
+import { useCart } from '@lib/context/CartContext';
 import { IconMinus, IconPlus, IconTrash } from '@tabler/icons-react';
 import { clsx } from 'clsx';
 
@@ -21,26 +21,26 @@ export function QuantitySelector({
   quantity,
   availableQuantity,
 }: Readonly<Props>) {
-  const { updateItemInCart, removeItemFromCart } = useCart();
+  const { updateFromCart, removeFromCart } = useCart();
 
-  const onIncrease = () => {
+  const onIncrease = async () => {
     if (quantity < availableQuantity) {
-      updateItemInCart(cartId, cartItemId, articleItemId, quantity + 1);
+      await updateFromCart(cartId, cartItemId, articleItemId, quantity + 1);
     }
   };
 
-  const onDecrease = () => {
+  const onDecrease = async () => {
     if (quantity > 1) {
-      updateItemInCart(cartId, cartItemId, articleItemId, quantity - 1);
+      await updateFromCart(cartId, cartItemId, articleItemId, quantity - 1);
     } else {
-      removeItemFromCart(cartItemId);
+      await removeFromCart(cartItemId);
     }
   };
 
   const onQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(e.target.value, 10);
     if (value > 0 && value <= availableQuantity) {
-      updateItemInCart(cartId, cartItemId, articleItemId, value);
+      updateFromCart(cartId, cartItemId, articleItemId, value);
     }
   };
 

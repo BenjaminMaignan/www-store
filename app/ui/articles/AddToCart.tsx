@@ -1,11 +1,12 @@
 'use client';
 
 import { createCartItem } from '@lib/actions/cartitem';
+import { useArticle } from '@lib/context/ArticleContext';
+import { useNotification } from '@lib/context/NotificationContext';
 import { clsx } from 'clsx';
 import { ReactNode, useState } from 'react';
 
 import { Loader } from '@ui/component/Loader';
-import { useNotification } from '@lib/context/NotificationContext';
 
 interface Props {
   articleItem: ArticleItem;
@@ -13,8 +14,11 @@ interface Props {
 
 export function AddToCart({ articleItem }: Readonly<Props>) {
   const { openNotification } = useNotification();
+  const article = useArticle();
 
-  const [message, setMessage] = useState<string | ReactNode>('Ajouter au panier');
+  const [message, setMessage] = useState<string | ReactNode>(
+    'Ajouter au panier'
+  );
 
   const [state, setState] = useState<'normal' | 'error'>('normal');
 
@@ -33,7 +37,7 @@ export function AddToCart({ articleItem }: Readonly<Props>) {
     createCartItem(cartItemReq)
       .then(() => {
         setMessage('Ajouter au panier');
-        openNotification("test", 'success');
+        openNotification(article, articleItem, 'success');
       })
       .catch((error) => {
         setMessage(error.message);
@@ -49,11 +53,14 @@ export function AddToCart({ articleItem }: Readonly<Props>) {
     <button
       onClick={onClick}
       disabled={state !== 'normal'}
-      className={clsx('w-full p-3 flex items-center justify-center uppercase text-lg font-semibold', {
-        'bg-black text-white hover:bg-zinc-900 active:bg-zinc-800':
-          state == 'normal',
-        'bg-red-100 text-red-500': state == 'error',
-      })}
+      className={clsx(
+        'w-full p-3 flex items-center justify-center uppercase text-lg font-semibold',
+        {
+          'bg-black text-white hover:bg-zinc-900 active:bg-zinc-800':
+            state == 'normal',
+          'bg-red-100 text-red-500': state == 'error',
+        }
+      )}
     >
       {message}
     </button>
