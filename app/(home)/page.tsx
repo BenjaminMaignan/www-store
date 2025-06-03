@@ -2,17 +2,17 @@ import { getArticles } from '@lib/actions/article';
 
 import { ArticleCard } from '@ui/articles/ArticleCard';
 import { Breadcrumb } from '@ui/component/Breadcrumb';
+import { SortingSelector } from '@ui/component/SortingSelector';
 
 export default async function Home() {
-  const articles: Article[] = await getArticles();
-
+  const articles: ArticleLight[] = await getArticles();
   const breadcrumbs: Breadcrumb[] = [
     { label: "Page d'accueil", href: '/', active: true },
   ];
 
   return (
-    <div className={'max-w-[90rem] mx-auto'}>
-      <div className={'p-3'}>
+    <div className={'max-w-[90rem] mx-auto p-4'}>
+      <div className={'py-2 mb-4'}>
         <Breadcrumb breadcrumbs={breadcrumbs} />
         <div>
           <h1 className={'font-bold text-4xl'}>Mode pour homme</h1>
@@ -21,25 +21,15 @@ export default async function Home() {
           </p>
         </div>
       </div>
-      <div className={'p-3 grid grid-cols-[16rem_1fr] gap-6'}>
+      <div className={'grid grid-cols-[16rem_1fr] gap-6'}>
         <aside>
-          <h2 className={'font-bold text-xl'}>Filtrer et trier</h2>
-          <select
-            name='sort'
-            id='sort'
-            className={'w-full p-2 bg-white border border-zinc-300'}
-          >
-            <option value=''>Plus récent</option>
-            <option value=''>Prix croissant</option>
-            <option value=''>Prix décroissant</option>
-          </select>
+          <h2 className={'font-bold text-xl mb-2'}>Filtrer et trier</h2>
+          <SortingSelector />
         </aside>
         <main className={'grid sm:grid-cols-3 lg:grid-cols-4 gap-3'}>
-          {articles.map((article, index) => {
-            return (
-              <ArticleCard key={index + 'articleCard'} article={article} />
-            );
-          })}
+          {articles.map((article, index) => (
+            <ArticleCard key={index + 'articleCard'} article={article} />
+          ))}
         </main>
       </div>
     </div>

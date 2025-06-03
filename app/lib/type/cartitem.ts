@@ -1,12 +1,14 @@
 interface CartItem {
   id: string;
-  article: Article;
+  articleItem: ArticleCartItem;
   quantity: number;
+  createdAt: Date;
+
 }
 
 interface CartItemRequest {
   id: string;
   cartId: string;
-  articleId: string;
+  articleItemId: string;
   quantity: number;
 }
