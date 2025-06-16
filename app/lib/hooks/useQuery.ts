@@ -9,7 +9,12 @@ export function useQuery() {
   const createQueryString = useCallback(
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams.toString());
-      params.set(name, value);
+
+      if (value.trim() === '') {
+        params.delete(name);
+      } else {
+        params.set(name, value);
+      }
 
       return params.toString();
     },
@@ -26,5 +31,5 @@ export function useQuery() {
 
   return {
     setQuery,
-  }
+  };
 }

@@ -2,6 +2,7 @@ import { getArticles } from '@lib/actions/article';
 
 import { ArticleCard } from '@ui/articles/ArticleCard';
 import { Breadcrumb } from '@ui/component/Breadcrumb';
+import { SearchBar } from '@ui/component/SearchBar';
 import { SortingSelector } from '@ui/component/SortingSelector';
 
 export default async function Home({
@@ -9,14 +10,17 @@ export default async function Home({
 }: Readonly<{
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }>) {
-  const { sort = 'price_asc' } = await searchParams;
-  const articles: ArticleLight[] = await getArticles(sort as string);
+  const filters = await searchParams;
+  const articles: ArticleLight[] = await getArticles(filters);
   const breadcrumbs: Breadcrumb[] = [
     { label: "Page d'accueil", href: '/', active: true },
   ];
 
   return (
     <div className={'max-w-[90rem] mx-auto p-4'}>
+      <div>
+        <SearchBar />
+      </div>
       <div className={'py-2 mb-4'}>
         <Breadcrumb breadcrumbs={breadcrumbs} />
         <div>
