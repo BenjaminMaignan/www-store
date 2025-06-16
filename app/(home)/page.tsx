@@ -4,8 +4,13 @@ import { ArticleCard } from '@ui/articles/ArticleCard';
 import { Breadcrumb } from '@ui/component/Breadcrumb';
 import { SortingSelector } from '@ui/component/SortingSelector';
 
-export default async function Home() {
-  const articles: ArticleLight[] = await getArticles();
+export default async function Home({
+  searchParams,
+}: Readonly<{
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}>) {
+  const { sort = 'price_asc' } = await searchParams;
+  const articles: ArticleLight[] = await getArticles(sort as string);
   const breadcrumbs: Breadcrumb[] = [
     { label: "Page d'accueil", href: '/', active: true },
   ];

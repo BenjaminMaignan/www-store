@@ -50,7 +50,7 @@ export function NotificationCart({
         <div className={'aspect-square h-20 my-auto'}>
           <img
             className={'w-full h-full object-cover'}
-            src='https://assets.wordans.fr/files/model_specifications/2020/1/27/1052931/1052931_big.jpg?1733634037'
+            src='https://mrmockup.com/wp-content/uploads/2023/07/Free-T-Shirt-on-Men-Mockup-01.jpg'
             alt='Sweat'
           />
         </div>

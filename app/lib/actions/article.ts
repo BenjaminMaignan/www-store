@@ -2,8 +2,16 @@
 
 import { revalidateTag } from 'next/cache';
 
-export async function getArticles(): Promise<ArticleLight[]> {
-  return fetch('http://localhost:8080/api/articles', {
+export async function getArticles(sort: string): Promise<ArticleLight[]> {
+  const params = new URLSearchParams();
+
+  params.set('sort', sort);
+
+  const queryString = params.toString();
+
+  const url = `http://localhost:8080/api/articles${queryString ? `?${queryString}` : ''}`;
+
+  return fetch(url, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

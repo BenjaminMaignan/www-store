@@ -17,10 +17,9 @@ export function SortingSelector() {
       name='sort'
       id='sort'
       className={'w-full p-2 bg-white border border-zinc-300'}
-      defaultValue={searchParams.get('sort') ?? 'newest'}
+      defaultValue={searchParams.get('sort') ?? 'price_asc'}
       onChange={onChange}
     >
-      <option value='newest'>Plus récent</option>
       <option value='price_asc'>Prix croissant</option>
       <option value='price_desc'>Prix décroissant</option>
     </select>
