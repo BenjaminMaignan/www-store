@@ -18,22 +18,24 @@ export function ArticleSizeSelector({
     (attribute) => attribute.color === selectedAttribute.color
   );
   const hasSize = (size: string) => {
-    return filteredAttributes.some((attribute) => attribute.size === size);
+    return filteredAttributes.some((attr) => attr.size === size);
   };
 
   const onClick = (size: string) => {
     setSize(size);
   };
 
+  const uniqueSizes = [...new Set(attributes.map(attr => attr.size))];
+
   return (
     <div className={'grid grid-cols-4 gap-2'}>
-      {attributes.map((attribute) => (
+      {uniqueSizes.map((s) => (
         <SizeButton
-          key={'size_' + attribute.size}
-          value={attribute.size}
-          selected={selectedAttribute.size === attribute.size}
-          disabled={!hasSize(attribute.size)}
-          onClick={() => onClick(attribute.size)}
+          key={'size_' + s}
+          value={s}
+          selected={selectedAttribute.size === s}
+          disabled={!hasSize(s)}
+          onClick={() => onClick(s)}
         />
       ))}
     </div>

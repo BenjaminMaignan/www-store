@@ -14,7 +14,7 @@ interface Props {
 
 export function AddToCart({ articleItem }: Readonly<Props>) {
   const { openNotification } = useNotification();
-  const article = useArticle();
+  const { article } = useArticle();
 
   const [message, setMessage] = useState<string | ReactNode>(
     'Ajouter au panier'
@@ -25,7 +25,7 @@ export function AddToCart({ articleItem }: Readonly<Props>) {
   const onClick = () => {
     const cartItemReq = {
       articleItemId: articleItem.id,
-      cartId: '11111111-1111-4444-1111-111111111119',
+      cartId: '8da92904-0ab6-46ec-8da4-2306445e6be5',
       quantity: 1,
     } as CartItemRequest;
     setMessage(

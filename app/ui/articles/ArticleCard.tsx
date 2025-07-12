@@ -4,6 +4,10 @@ import { ArticleRate } from '@ui/articles/ArticleRate';
 import { CurrencyFormatter } from '@ui/component/CurrencyFormatter';
 
 export function ArticleCard({ article }: Readonly<{ article: ArticleLight }>) {
+  const defaultImageUrl =
+    article.imageUrl ??
+    'https://mrmockup.com/wp-content/uploads/2023/07/Free-T-Shirt-on-Men-Mockup-01.jpg';
+
   return (
     <Link
       href={`articles/${article.id}`}
@@ -12,8 +16,8 @@ export function ArticleCard({ article }: Readonly<{ article: ArticleLight }>) {
       <section className={'bg-white'}>
         <img
           className={'w-full aspect-square object-cover'}
-          src='https://mrmockup.com/wp-content/uploads/2023/07/Free-T-Shirt-on-Men-Mockup-01.jpg'
-          alt='Sweat'
+          src={defaultImageUrl}
+          alt='ArticleItemImage'
         />
       </section>
       <section className={'flex flex-col gap-2 px-4 pb-4'}>

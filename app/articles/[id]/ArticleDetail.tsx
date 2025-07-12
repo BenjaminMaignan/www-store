@@ -12,7 +12,7 @@ import { ArticleRate } from '@ui/articles/ArticleRate';
 import { CurrencyFormatter } from '@ui/component/CurrencyFormatter';
 
 export function ArticleDetail() {
-  const article: Article = useArticle();
+  const { article } = useArticle();
   const { selectedAttribute, handleColorChange, handleSizeChange } =
     useArticleAttributes(
       article.articleItems.map((item) => ({

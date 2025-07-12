@@ -1,9 +1,11 @@
 "use client";
 
-import { createContext, useContext, useMemo } from 'react';
+import { createContext, useContext, useMemo, useState } from 'react';
 
 interface ArticleContextType {
   article : Article;
+  selectedArticleItem: ArticleItem | null;
+  setSelectedArticleItem: (item: ArticleItem | null) => void;
 }
 
 interface Props {
@@ -18,11 +20,13 @@ export function useArticle() {
   if (!context) {
     throw new Error('useArticle must be used within an ArticleProvider');
   }
-  return context.article;
+  return context;
 }
 
 export function ArticleProvider({ children, article }: Readonly<Props>) {
-  const value = useMemo(() => ({ article }), [article]);
+  const [selectedArticleItem, setSelectedArticleItem] = useState<ArticleItem | null>(article.articleItems[0] || null);
+
+  const value = useMemo(() => ({ article, selectedArticleItem, setSelectedArticleItem }), [article, selectedArticleItem]);
 
   return (
     <ArticleContext.Provider value={value}>

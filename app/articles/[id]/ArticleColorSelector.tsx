@@ -1,7 +1,7 @@
 'use client';
 
+import { useArticle } from '@lib/context/ArticleContext';
 import { clsx } from 'clsx';
-import { Attribute } from 'postcss-selector-parser';
 
 interface ArticleAttribute {
   color: string;
@@ -19,6 +19,8 @@ export function ArticleColorSelector({
   selectedAttribute,
   setColor,
 }: Readonly<Props>) {
+  const { article, setSelectedArticleItem } = useArticle();
+
   const getColorClass = (color: string) => {
     switch (color.toLowerCase()) {
       case 'red':
@@ -31,27 +33,41 @@ export function ArticleColorSelector({
         return 'bg-yellow-800';
       case 'purple':
         return 'bg-purple-800';
+      case 'grey':
+        return 'bg-gray-600';
+      case 'black':
+        return 'bg-black';
+      case 'beige':
+        return 'bg-yellow-100';
       default:
-        return '';
+        return 'bg-white';
     }
   };
 
   const onClick = (color: string) => {
     setColor(color);
+
+    const result = article.articleItems.find((item) => item.color === color);
+
+    if (result) {
+      setSelectedArticleItem(result);
+    }
   };
+
+  const uniqueColors = [...new Set(attributes.map((attr) => attr.color))];
 
   return (
     <div className={'flex flex-wrap gap-2'}>
-      {attributes.map((attribute) => (
+      {uniqueColors.map((c) => (
         <button
-          key={'color_' + attribute.color}
+          key={'color_' + c}
           className={clsx(
-            `relative size-6 rounded-full ${getColorClass(attribute.color)} flex items-center justify-center`,
+            `relative size-6 rounded-full ${getColorClass(c)} flex items-center justify-center`,
             {
-              'ring-2 ring-zinc-300': selectedAttribute.color === attribute.color,
+              'ring-2 ring-zinc-300': selectedAttribute.color === c,
             }
           )}
-          onClick={() => onClick(attribute.color)}
+          onClick={() => onClick(c)}
         ></button>
       ))}
     </div>

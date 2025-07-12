@@ -3,6 +3,7 @@ interface ArticleItem {
   size: string;
   color: string;
   availableStock: number;
+  imageUrl: string;
 }
 
 interface ArticleCartItem extends ArticleItem {

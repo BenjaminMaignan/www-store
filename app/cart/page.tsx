@@ -6,7 +6,7 @@ import { Breadcrumb } from '@ui/component/Breadcrumb';
 import { CurrencyFormatter } from '@ui/component/CurrencyFormatter';
 
 export default async function CartPage() {
-  const cart: Cart = await getCart('11111111-1111-4444-1111-111111111119');
+  const cart: Cart = await getCart('8da92904-0ab6-46ec-8da4-2306445e6be5');
 
   const breadcrumbs: Breadcrumb[] = [
     { label: "Page d'accueil", href: '/' },

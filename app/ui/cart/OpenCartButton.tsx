@@ -3,7 +3,7 @@
 import { IconShoppingCart } from '@tabler/icons-react';
 import { redirect, usePathname } from 'next/navigation';
 
-export function OpenCartModalButton() {
+export function OpenCartButton() {
   const pathname = usePathname();
 
   const goToCartPage = () => {
@@ -12,8 +12,8 @@ export function OpenCartModalButton() {
     }
   };
   return (
-    <button className={'text-white'} onClick={goToCartPage}>
-      <IconShoppingCart className={'text-white w-6 grid grid-cols-2'} />
+    <button className={'text-black'} onClick={goToCartPage}>
+      <IconShoppingCart />
     </button>
   );
 }
