@@ -19,7 +19,7 @@ interface Props {
 export default async function ArticlePage({ params }: Readonly<Props>) {
   const { id } = await params;
   const article: Article = await getArticle(id);
-  const cart: Cart = await getCart('11111111-1111-4444-1111-111111111119');
+  const cart: Cart = await getCart('8da92904-0ab6-46ec-8da4-2306445e6be5');
 
   const breadcrumbs: Breadcrumb[] = [
     { label: "Page d'accueil", href: '/' },

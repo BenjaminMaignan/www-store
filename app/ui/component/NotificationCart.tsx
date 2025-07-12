@@ -23,8 +23,7 @@ export function NotificationCart({
     }
   };
 
-  // const cartItemCount = cart.cartItems.length;
-  const cartItemCount = 0;
+  const cartItemCount = cart.cartItems.length;
   const priceList = cart.cartItems.map((item) => item.articleItem.price);
   const cartCost = priceList.reduce((total, price) => {
     return total + price;
